@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Home() {
+function DetailMovie() {
     return (
         <div>
-            ici ma page home
+            
         </div>
     )
 }
 
-export default Home
+export default DetailMovie

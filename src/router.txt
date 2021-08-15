@@ -1,0 +1,132 @@
+// myapp/src/components/MovieList.js
+
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+const MovieList = ({ movies }) => {
+  return (
+    <>
+      <h1>Movie List</h1>
+      <ul>
+        {movies.map(movie => {
+          return (
+            <li key={movie.id}>
+              <Link to={`/movies/${movie.id}`}>
+                {movie.title}
+                  </Link>
+            </li>
+           )
+         })}
+      </ul>
+    </>
+  )
+}
+
+export default MovieList
+
+
+*****************************************
+// myapp/src/App.js
+
+import React from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Home from "./components/Home"
+import Contact from './components/Contact'
+import AboutUs from './components/AboutUs'
+import MovieList from './components/MovieList'
+
+const App = () => {
+
+  const movies = [
+    { id: 1, title: 'Clockwork Orange', year: '1971' },
+    { id: 2, title: 'Full Metal Jacket', year: '1987' },
+    { id: 3, title: 'The Shining', year: '1980' },
+    { id: 4, title: '2001: A Space Odyssey', year: '1968' }
+  ]
+
+  return (
+    <>
+      <h1>My App</h1>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/home/about" component={AboutUs} />
+          <Route path="/home" component={Home} />
+          <Route exact path="/contact" component={Contact} />
+          <Route path="/movies" render={() => <MovieList movies={movies} />} />
+        </Switch>
+      </BrowserRouter>
+    </>
+  )
+}
+
+export default App
+******************************************************
+// myapp/src/components/MovieDetails.js
+
+import React from 'react'
+
+const MovieDetails = ({ movie }) => {
+  return (
+    <>
+      {movie ?
+        <>
+          <h1>Movie Details</h1>
+          <p>Title: {movie.title}</p>
+          <p>Year: {movie.year}</p>
+        </>
+        :
+        <p>No movie found.</p>
+      }
+    </>
+  )
+}
+
+export default MovieDetails
+********************************************
+import React from 'react'
+import { Switch, Route, Link } from 'react-router-dom'
+import MovieDetails from './MovieDetails'
+
+const MovieList = ({ movies }) => {
+  return (
+    <>
+      <Switch>
+        <Route path="/movies/:id" render={({ match }) => {
+          const id = parseInt(match.params.id)
+          const foundMovie = movies.find(movie => movie.id === id)
+          return <MovieDetails movie={foundMovie} />
+        }} />
+        <Route path="/movies" render={() => {
+          return (
+            <>
+              <h1>Movie List</h1>
+              <ul>
+                {movies.map(movie => {
+                  return (
+                    <li key={movie.id}>
+                      <Link to={`/movies/${movie.id}`}>
+                        {movie.title}
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </>
+          )
+        }} />
+      </Switch>
+    </>
+  )
+}
+
+export default MovieList
+*************************************
+Second, what is match? When rendering a component through a <Route>, the function accepts an argument called route props. The route props include match, location, and history. The match object contains information about how a <Route path> matched the URL.
+
+If you add an argument to render prop and console.log() it, you can see the actual route props:
+<Route path="/movies/:id" render={routeProps => {
+  console.log(routeProps)
+  const id = parseInt(routeProps.match.params.id)
+  const foundMovie = movies.find(movie => movie.id === id)
+  return <MovieDetails movie={foundMovie} />
+        }} />

@@ -1,34 +1,52 @@
-import { BrowserRouter as Router, Link, Redirect, Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react'
+import MoviesList from './Component/MoviesList';
+import { Data } from './Data';
+import AddMovies from './Component/AddMovies';
+import Search from './Component/Search';
 import './App.css';
-import Home from './Component/Home';
-import Principal from './Principal';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+const App = () => {
+  //initialiser les donnee a notre data
+  const [movie, setMovie] = useState(Data)
+  //ajout d'une card
+  const HandlAdd = (newmovie) => {
+    setMovie([...movie, newmovie])
+  }
+  const [search, setSearch] = useState("");
 
+  //serch by rating
+  const [searrate, setSearrate] = useState(0);
+  const HandlRate = (newRate) => {
+    setSearrate(newRate);
+  }
 
-function App() {
+  //call back function
+  const HandlChange = (x) => {
+    setSearch(x);
+
+  }
   return (
     <div className="App">
 
+      <Search HandlChange={HandlChange} search={search} rate={searrate} HandlRate={HandlRate} />
+      
+      <AddMovies HandlAdd={HandlAdd} />
+      <Router><Switch>
+      <Route path="/films" 
+      render={() =>
+      <MoviesList films={movie.filter((i) => { return i.title.toLowerCase().match(search.toLowerCase().trim()) && i.rating >= searrate; })} /> } />
 
-      <Router>
-       <nav>
-         <ul>
-           <li><Link to="/">Home</Link></li>
-           <li><Link to="/Principal">Principal</Link></li>
-         </ul>
-       </nav>
-       <Switch>
-         
-            <Route path="/" exact  component={Home}/>
-            <Route path="/Principal" exact component={Principal}/>
-           </Switch>
-      </Router>
+      </Switch></Router>
+      
+     
 
 
-    
 
-    </div >
-  );
+      
+
+
+    </div>
+  )
 }
-
-export default App;
+export default App
