@@ -10,7 +10,7 @@ return (
 
  
 <Switch>
-<Route path="/films/:id" render={({ match }) => {
+<Route path="/:id" render={({ match }) => {
           const id = parseInt(match.params.id)
           const foundMovie = films.find(elt => elt.id === id)
           return <MovieDetails elt={foundMovie} />
@@ -18,7 +18,7 @@ return (
 
 
        
-    <Route path="/films" 
+    <Route path="/" 
         render={() => <div className="liste_movies">
                {
                 films.map((elt) =>
@@ -27,6 +27,7 @@ return (
                     <Card.Img variant="top" src={elt.image} className="image" />
                     <Card.Body>
                       <Link to={`/films/${elt.id}`}>
+                          
                         <Card.Title className="titre">{elt.title} </Card.Title>
                         </Link> 
                     <Rating rate={elt.rating}/>

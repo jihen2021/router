@@ -29,11 +29,13 @@ const App = () => {
   return (
     <div className="App">
 
+     
+     
       <Search HandlChange={HandlChange} search={search} rate={searrate} HandlRate={HandlRate} />
-      
       <AddMovies HandlAdd={HandlAdd} />
-      <Router><Switch>
-      <Route path="/films" 
+      <Router>
+      <Switch>
+      <Route path="/" 
       render={() =>
       <MoviesList films={movie.filter((i) => { return i.title.toLowerCase().match(search.toLowerCase().trim()) && i.rating >= searrate; })} /> } />
 

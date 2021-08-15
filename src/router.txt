@@ -52,7 +52,10 @@ const App = () => {
           <Route path="/home/about" component={AboutUs} />
           <Route path="/home" component={Home} />
           <Route exact path="/contact" component={Contact} />
+
+
           <Route path="/movies" render={() => <MovieList movies={movies} />} />
+          
         </Switch>
       </BrowserRouter>
     </>
