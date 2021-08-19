@@ -4,7 +4,9 @@ import { Data } from './Data';
 import AddMovies from './Component/AddMovies';
 import Search from './Component/Search';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import MovieDetails from './Component/MovieDetails';
 
 const App = () => {
   //initialiser les donnee a notre data
@@ -20,7 +22,6 @@ const App = () => {
   const HandlRate = (newRate) => {
     setSearrate(newRate);
   }
-
   //call back function
   const HandlChange = (x) => {
     setSearch(x);
@@ -28,25 +29,22 @@ const App = () => {
   }
   return (
     <div className="App">
-
-     
-     
       <Search HandlChange={HandlChange} search={search} rate={searrate} HandlRate={HandlRate} />
-      <AddMovies HandlAdd={HandlAdd} />
       <Router>
-      <Switch>
-      <Route path="/" 
-      render={() =>
-      <MoviesList films={movie.filter((i) => { return i.title.toLowerCase().match(search.toLowerCase().trim()) && i.rating >= searrate; })} /> } />
+        <Link to="/add">Ajouter un films</Link>
+        <Switch>
+          <Route path="/" exact
 
-      </Switch></Router>
-      
-     
+            render={(props) =>
+              <MoviesList  {...props}
+                films={movie.filter((i) => { return i.title.toLowerCase().match(search.toLowerCase().trim()) && i.rating >= searrate; })} />
 
+            } />
 
+          <Route path="/add" render={(props) => <AddMovies {...props} HandlAdd={HandlAdd} />} />
+          <Route exact path="/moviedetails/:id" render={(props) => <MovieDetails {...props} movies={movie}/>}/> 
 
-      
-
+        </Switch></Router>
 
     </div>
   )

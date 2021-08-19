@@ -1,25 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const MovieDetails = ({ elt }) => {
-
-
-
+const MovieDetails = ({ match , movies }) => {
+ 
   
-  return (
-    <>
-      {elt?
-        <>
-          <h1>Movie Details</h1>
-          <p>Title: {elt.title}</p>
-          <p>Title: {elt.image}</p>
-          <p>Title: {elt.rating}</p>
-         
-         
-        </>
-        :
-        <p>No movie found.</p>
-      }
-    </>
-  )
+
+  const acte=movies.find(elt=>elt.id==match.params.id)
+  
+  return (<div >
+    
+    < h1>{acte.title}</h1> 
+ 
+ </div>)
+
 }
+
 export default MovieDetails

@@ -1,11 +1,4 @@
-.App {
-  /* background-image: url("https://png.pngtree.com/thumb_back/fw800/back_our/20190617/ourmid/pngtree-atmospheric-textured-film-and-television-company-propaganda-background-image_127872.jpg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 0;
-  padding: 0; */
-}
+
 .warpper {
 
   display: flex;
@@ -70,4 +63,22 @@ h1{
 }
 .form{
   
+}
+.DetailCard{
+  display: flex;
+  justify-content: center;
+}
+.imageDetail{
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.bw:hover {
+    filter: none;
+    -webkit-filter: grayscale(0);
 }
